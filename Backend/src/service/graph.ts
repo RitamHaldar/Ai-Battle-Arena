@@ -1,5 +1,4 @@
-import { groqModel, geminiModel, mystralModel } from "./ai.service.js";
-import cohereModel from "./cohere.setup.js";
+import { groqModel, geminiModel, mystralModel, cohereModel } from "./ai.service.js";
 import { StateGraph, START, END, type GraphNode, StateSchema } from "@langchain/langgraph";
 import * as z from "zod";
 import { createAgent, HumanMessage, providerStrategy } from "langchain";

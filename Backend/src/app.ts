@@ -1,13 +1,12 @@
 import express from "express"
-import graph from "./service/graph.js"
+import chatRouter from "./routes/chat.routes.js"
+import cookieParser from "cookie-parser"
+import authRouter from "./routes/auth.routes.js"
 const app = express()
 
 app.use(express.json())
-
-app.post("/", async (req, res) => {
-    const { problem } = req.body;
-    const result = await graph(problem);
-    res.json(result);
-})
+app.use(cookieParser())
+app.use("/api/chat", chatRouter)
+app.use("/api/auth", authRouter)
 
 export default app
