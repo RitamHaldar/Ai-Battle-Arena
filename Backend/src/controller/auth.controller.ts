@@ -64,3 +64,11 @@ export async function getUser(req: any, res: any) {
         user
     });
 }
+
+export async function logoutUser(req: any, res: any) {
+    res.clearCookie("token");
+    res.status(200).json({
+        success: true,
+        message: "User logged out successfully"
+    });
+}

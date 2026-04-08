@@ -15,7 +15,7 @@ export const groqModel = new ChatGroq({
 
 export const geminiModel = new ChatGoogle({
     apiKey: config.GEMINI_API_KEY,
-    model: "gemini-2.5-flash"
+    model: "gemini-flash-latest"
 })
 
 const cohere = new CohereClientV2({

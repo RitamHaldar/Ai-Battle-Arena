@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { User, Lock, Mail, ArrowRight, Zap, Target } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useAuth } from '../Hooks/useAuth';
 const Register = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -11,10 +12,9 @@ const Register = () => {
     const navigate = useNavigate();
     const cardRef = useRef(null);
     const containerRef = useRef(null);
-
+    const { register } = useAuth();
     useEffect(() => {
         let ctx = gsap.context(() => {
-            // Background glow animation
             gsap.to(".bg-glow", {
                 opacity: 0.5,
                 scale: 1.2,
@@ -24,7 +24,6 @@ const Register = () => {
                 ease: "sine.inOut"
             });
 
-            // Card entrance
             gsap.from(cardRef.current, {
                 y: 80,
                 opacity: 0,
@@ -32,7 +31,6 @@ const Register = () => {
                 ease: "expo.out"
             });
 
-            // Input fields stagger
             gsap.from(".animate-input", {
                 y: 20,
                 opacity: 0,
@@ -42,7 +40,6 @@ const Register = () => {
                 delay: 0.5
             });
 
-            // Elements subtle hover influence
             gsap.from(".logo-badge", {
                 rotation: -10,
                 scale: 0.8,
@@ -64,23 +61,20 @@ const Register = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Registration Payload:', formData);
-        // Implement API call here
+        await register(formData);
+        navigate("/");
     };
 
     return (
         <div ref={containerRef} className="min-h-screen bg-[#060a14] text-gray-300 flex items-center justify-center p-6 relative overflow-hidden selection:bg-cyan-500/30">
-            {/* Background elements */}
             <div className="bg-glow absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="bg-glow absolute bottom-[-5%] left-[-5%] w-[600px] h-[600px] bg-cyan-900/10 rounded-full blur-[150px] pointer-events-none" />
 
-            <div ref={cardRef} className="w-full max-w-lg bg-[#0a0f1c]/60 backdrop-blur-2xl border border-gray-800/60 rounded-[2.5rem] p-12 shadow-2xl relative z-10 overflow-hidden">
-                {/* Visual Accent */}
+            <div ref={cardRef} className="w-full max-lg bg-[#0a0f1c]/60 backdrop-blur-2xl border border-gray-800/60 rounded-[2.5rem] p-12 shadow-2xl relative z-10 overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
 
-                {/* Logo & Header */}
                 <div className="flex flex-col items-center mb-10">
                     <div className="logo-badge w-16 h-16 rounded-2xl bg-[#12182b] border border-gray-800 flex items-center justify-center mb-6 shadow-xl relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
@@ -95,7 +89,6 @@ const Register = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Username Input */}
                     <div className="animate-input space-y-2 md:col-span-2">
                         <label className="block text-[10px] font-black text-gray-600 tracking-[0.3em] uppercase ml-1 italic">Unit_Designation</label>
                         <div className="relative group">
@@ -112,7 +105,6 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Email Input */}
                     <div className="animate-input space-y-2 md:col-span-2">
                         <label className="block text-[10px] font-black text-gray-600 tracking-[0.3em] uppercase ml-1 italic">Signal_Vector</label>
                         <div className="relative group">
@@ -129,7 +121,6 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Password Input */}
                     <div className="animate-input space-y-2 md:col-span-2">
                         <label className="block text-[10px] font-black text-gray-600 tracking-[0.3em] uppercase ml-1 italic">Cryptographic_Hash</label>
                         <div className="relative group">
@@ -146,7 +137,6 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Submit Button */}
                     <div className="md:col-span-2 pt-4">
                         <button
                             type="submit"
@@ -159,7 +149,6 @@ const Register = () => {
                     </div>
                 </form>
 
-                {/* Footer Links */}
                 <div className="mt-12 pt-8 border-t border-gray-800/50 flex flex-col md:flex-row items-center justify-between gap-4 animate-input">
                     <p onClick={() => navigate("/login")} className="text-[10px] text-gray-500 font-bold tracking-widest uppercase">
                         Already synced?
@@ -175,7 +164,6 @@ const Register = () => {
                 </div>
             </div>
 
-            {/* Tactical Grid Overlay (Subtle) */}
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#1a202c 1px, transparent 1px), linear-gradient(90deg, #1a202c 1px, transparent 1px)', backgroundSize: '50px 50px' }} />
         </div>
     );
