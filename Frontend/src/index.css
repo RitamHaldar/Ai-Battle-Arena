@@ -3,8 +3,20 @@
 
 @layer base {
   :root {
+    --bg-primary: #060a14;
+    --bg-secondary: #0a0f1c;
+    --bg-accent: #0f1423;
+    --cyan-primary: #0891b2;
+    --cyan-glow: rgba(8, 145, 178, 0.4);
+    --purple-primary: #8b5cf6;
+    --purple-glow: rgba(139, 92, 246, 0.4);
+    
     scrollbar-color: #1e293b transparent;
     scrollbar-width: thin;
+  }
+
+  body {
+    @apply bg-[#060a14] text-gray-300 antialiased selection:bg-cyan-500/30 selection:text-cyan-200;
   }
 
   ::-webkit-scrollbar {
@@ -23,8 +35,8 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #0891b2;
-    box-shadow: 0 0 10px rgba(8, 145, 178, 0.4);
+    background: var(--cyan-primary);
+    box-shadow: 0 0 10px var(--cyan-glow);
   }
 
   ::-webkit-scrollbar-corner {
@@ -46,5 +58,18 @@
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: #334155;
+  }
+
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+
+  .neo-blur {
+    @apply relative after:absolute after:inset-0 after:bg-cyan-500/20 after:blur-3xl after:pointer-events-none;
+  }
+
+  .grid-bg {
+    background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-size: 40px 40px;
   }
 }
